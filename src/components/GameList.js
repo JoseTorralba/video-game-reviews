@@ -1,16 +1,19 @@
-const GameList = ({ games }) => {
-  console.log(games);
+const GameList = ({ games, onSelectGame }) => {
   return (
     <div className='sidebar'>
       <ul className='sidebar-list'>
-        <h2>Results found: X</h2>
+        <h2>Results found: {games.length}</h2>
         {games?.map(game => (
-          <li className='test' key={game.id}>
-            <img className='poster' src={game.Poster} alt={game.Title} />
+          <li key={game.id} onClick={() => onSelectGame(game.id)}>
+            <img
+              className='poster'
+              src={game.background_image}
+              alt={game.Title}
+            />
 
             <div>
-              <p>{game.Title}</p>
-              <p>Released: {game.Year}</p>
+              <p>{game.name}</p>
+              <p>Released: {game.released}</p>
             </div>
           </li>
         ))}

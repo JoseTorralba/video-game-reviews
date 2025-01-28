@@ -14,20 +14,11 @@ const GameReviews = ({ reviewed }) => {
 
       {isOpen && (
         <ul className='reviews-list'>
-          {reviewed.map(game => (
-            <li className='reviews-item'>
-              <img
-                className='reviews-poster'
-                src={game.Poster}
-                alt={game.Title}
-              />
-
-              <div className='reviews-info'>
-                <h3>{game.Title}</h3>
-                <p>Stars Rating</p>
-              </div>
-            </li>
-          ))}
+          <li className='reviews-item'>
+            <div className='reviews-info'>
+              <p>Reviews Here</p>
+            </div>
+          </li>
         </ul>
       )}
     </div>
