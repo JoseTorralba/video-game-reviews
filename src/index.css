@@ -77,14 +77,17 @@ Reviewed Games
   color: #dee2e6;
 }
 
-.btn-toggle {
-  background-color: #dee2e6;
+.reviews-toggle {
+  background-color: #1b63ff;
   border: none;
-  color: #2b3035;
-  height: fit-content;
-  padding: 0.3rem 0.8rem;
-  width: fit-content;
+  border-radius: 2rem;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
   justify-self: end;
+  padding: 0.3rem 0.8rem;
+  height: 2.5rem;
+  width: 2.5rem;
 }
 
 .reviews-list {
@@ -178,25 +181,21 @@ Game Overview
 
 .overview-textbox {
   background-color: #212529;
-  border-radius: 0 1rem 1rem 0;
   color: #dee2e6;
-  margin-top: -4rem;
-  padding: 1.5rem 10rem 1.5rem 2rem;
-  position: absolute;
-  /* width: 100%; */
-  z-index: 1000;
-}
-
-.overview-textbox :not(:last-child) {
-  margin-bottom: 1rem;
+  padding: 1.5rem 2rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .overview-textbox h2 {
-  font-size: 1.7rem;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
 .overview-textbox h3 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .overview-header {
@@ -204,23 +203,39 @@ Game Overview
   display: inline-block;
 }
 
-.overview-header img {
-  width: 100%;
+.overview-summary {
+  padding: 2rem;
+  line-height: 1.6;
+  font-size: 1.4rem;
 }
 
-.overview-header:after {
+.overview-summary p {
+  margin-bottom: 1.5rem;
+}
+
+.overview-image {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 40rem;
+}
+
+.overview-image:after {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: 40rem;
   display: inline-block;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1));
 }
 
-.overview-summary {
-  padding: 5rem 2rem;
-  line-height: 1.6;
-  font-size: 1.4rem;
+.overview-btn {
+  background-color: #1b63ff;
+  border: none;
+  border-radius: 2rem;
+  color: #fff;
+  padding: 0.5rem 2rem;
+  margin-top: 1rem;
 }

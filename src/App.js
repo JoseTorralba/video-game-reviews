@@ -8,7 +8,7 @@ import './index.css';
 
 function App() {
   const [games, setGames] = useState([]);
-  const [gameOverview, setGameOverview] = useState();
+  const [reviewed, setReviewed] = useState([]);
   const [query, setQuery] = useState('');
   const [error, setError] = useState('');
   const [selectedId, setSelectedId] = useState(null);
@@ -18,6 +18,14 @@ function App() {
   const handleSelectGame = id => {
     setSelectedId(selectedId => (id === selectedId ? null : id));
   };
+
+  const handleAddReviewed = game => {
+    setReviewed(reviewed => [...reviewed, game]);
+  };
+
+  function handleDeleteReview(id) {
+    setReviewed(reviewed => reviewed.filter(game => game.id !== id));
+  }
 
   useEffect(() => {
     const controller = new AbortController();
@@ -36,8 +44,6 @@ function App() {
         if (data.Response === 'False') throw new Error('Game not found');
 
         setGames(data.results);
-        console.log(data.results);
-
         setError('');
       } catch (err) {
         setError(err.message);
@@ -46,7 +52,6 @@ function App() {
         }
       }
     }
-
     getGames();
 
     return function () {
@@ -58,10 +63,15 @@ function App() {
     <div className='App'>
       <Navbar query={query} setQuery={setQuery} />
 
-      <GameReviews reviewed={games} />
+      <GameReviews reviewed={reviewed} />
       <Main>
         <GameList games={games} onSelectGame={handleSelectGame} />
-        <GameOverview selectedId={selectedId} gameOverview={gameOverview} />
+        <GameOverview
+          selectedId={selectedId}
+          onAddReview={handleAddReviewed}
+          onDeleteReview={handleDeleteReview}
+          reviewed={reviewed}
+        />
       </Main>
     </div>
   );

@@ -1,26 +1,22 @@
 import { useState } from 'react';
+import GameReviewList from './GameReviewList';
 
 const GameReviews = ({ reviewed }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className='reviews'>
       <div className='reviews-dropdown'>
         <h2>My Reviewed Games</h2>
-        <button className='btn-toggle' onClick={() => setIsOpen(open => !open)}>
+        <button
+          className='reviews-toggle'
+          onClick={() => setIsOpen(open => !open)}
+        >
           {isOpen ? '-' : '+'}
         </button>
       </div>
 
-      {isOpen && (
-        <ul className='reviews-list'>
-          <li className='reviews-item'>
-            <div className='reviews-info'>
-              <p>Reviews Here</p>
-            </div>
-          </li>
-        </ul>
-      )}
+      {isOpen && <GameReviewList reviewed={reviewed} />}
     </div>
   );
 };
