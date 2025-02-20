@@ -45,13 +45,11 @@ Container
 
 .container {
   margin: 2.4rem auto;
-  height: calc(100vh - 12rem - 3 * 2.4rem);
+  height: calc(100vh - 4rem - 3 * 2.4rem);
   display: flex;
   gap: 2.4rem;
   justify-content: center;
   width: 114rem;
-
-  /* flex-wrap: wrap; */
 }
 
 /************************************************* 
@@ -62,7 +60,7 @@ Reviewed Games
   align-items: center;
   background-color: #343a40;
   border-radius: 0.9rem;
-
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   margin: 2rem auto 0 auto;
   width: 114rem;
   padding: 2rem;
@@ -82,6 +80,7 @@ Reviewed Games
   border: none;
   border-radius: 2rem;
   color: #fff;
+  cursor: pointer;
   font-size: 1.5rem;
   font-weight: 700;
   justify-self: end;
@@ -94,8 +93,9 @@ Reviewed Games
   color: #dee2e6;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+
   list-style: none;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .reviews-item {
@@ -104,7 +104,7 @@ Reviewed Games
   grid-template-columns: 4rem 1fr;
   grid-template-rows: auto auto;
   column-gap: 1rem;
-  row-gap: 1.5rem;
+  row-gap: 2rem;
   font-size: 1.6rem;
   align-items: center;
 }
@@ -117,8 +117,15 @@ Reviewed Games
   font-size: 1rem;
 }
 
-.reviews-poster {
-  width: 100%;
+.reviews-image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 2.5rem;
+}
+
+.reviews-image:hover {
+  cursor: pointer;
 }
 
 /************************************************* 
@@ -126,6 +133,7 @@ Game List
 *************************************************/
 
 .sidebar {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   flex: 1;
   width: 42rem;
   max-width: 42rem;
@@ -138,27 +146,39 @@ Game List
 .sidebar-list {
   color: #dee2e6;
   list-style: none;
-  padding: 1.5rem 2rem;
+  /* padding: 1.5rem 2rem; */
   overflow: scroll;
 }
 
 .sidebar-list h2 {
-  padding-bottom: 2rem;
+  padding: 2rem 3.2rem;
 }
 
 .sidebar-list li {
   position: relative;
   display: grid;
-  grid-template-columns: 4rem 1fr;
+  grid-template-columns: 8rem 1fr;
   grid-template-rows: auto auto;
   column-gap: 2.4rem;
-  row-gap: 2rem;
+  /* row-gap: 2rem; */
+  padding: 1.6rem 3.2rem;
   font-size: 1.6rem;
   align-items: center;
+  border-bottom: 2px solid #2b3035;
+  transition: ease-in-out all 0.2s;
 }
 
-.poster {
-  width: 100%;
+.sidebar-list li:hover {
+  background-color: #212529;
+  cursor: pointer;
+}
+
+.game-list-image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 8rem;
+  height: 4rem;
 }
 
 /************************************************* 
@@ -166,13 +186,20 @@ Game Overview
 *************************************************/
 
 .overview {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   color: #dee2e6;
   background-color: #343a40;
   border-radius: 0.9rem;
   flex: 1;
-  overflow: scroll;
+  overflow: auto;
   position: relative;
   width: 100%;
+}
+
+.overview-tip {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 3rem;
 }
 
 .overview-game {
@@ -228,7 +255,17 @@ Game Overview
   width: 100%;
   height: 40rem;
   display: inline-block;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1));
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(33, 37, 41, 1)
+  );
+}
+
+.overview-rating {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .overview-btn {
@@ -236,6 +273,71 @@ Game Overview
   border: none;
   border-radius: 2rem;
   color: #fff;
+  cursor: pointer;
   padding: 0.5rem 2rem;
   margin-top: 1rem;
+}
+
+/************************************************* 
+Loading Animation
+*************************************************/
+
+.loading-box {
+  text-align: center;
+  margin: 4.8rem;
+}
+
+.loading-box h3 {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.loading {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading div {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  width: 2rem;
+  height: 2rem;
+  background: #fff;
+  border-radius: 50%;
+
+  animation: cycle 0.6s ease-in-out infinite;
+}
+
+.loading div:nth-child(1) {
+  animation-delay: 0;
+}
+.loading div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.loading div:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes cycle {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(0.6rem);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/************************************************* 
+Error Message
+*************************************************/
+.error p {
+  font-size: 1.8rem;
+  text-align: center;
 }

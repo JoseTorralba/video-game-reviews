@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import ErrorMessage from './ErrorMessage';
 import StarRating from './StarRating';
+import Loader from './Loader';
 
 const GameOverview = ({
   selectedId,
@@ -10,8 +12,7 @@ const GameOverview = ({
   const [game, setGame] = useState({});
   const [userRating, setUserRating] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const KEY = 'a1fef96712d845f4a4186f1ee3e7033a';
-
+  const [error, setError] = useState('');
   const isPlayed = reviewed.map(game => game.id).includes(selectedId);
 
   const playedUserRating = reviewed.find(
@@ -29,28 +30,61 @@ const GameOverview = ({
     setUserRating('');
   }
 
-  useEffect(
-    function () {
-      async function getGameOverview() {
+  useEffect(() => {
+    const controller = new AbortController();
+    async function getGameOverview() {
+      try {
         setIsLoading(true);
+        setError('');
+
         const res = await fetch(
-          `https://api.rawg.io/api/games/${selectedId}?key=${KEY}`
+          `https://api.rawg.io/api/games/${selectedId}?key=${process.env.REACT_APP_API_KEY}`,
+          { signal: controller.signal }
         );
 
+        if (!res.ok)
+          throw new Error('Something went wrong with fetching the game...');
+
         const data = await res.json();
+        if (data.Response === 'False') throw new Error('Game not found');
+
         setGame(data);
+        setError('');
+      } catch (err) {
+        setError(err.message);
+        if (err.name !== 'AbortError') {
+          setError(err.message);
+        }
+      } finally {
         setIsLoading(false);
       }
+    }
 
-      getGameOverview();
-    },
-    [selectedId]
-  );
+    getGameOverview();
+  }, [selectedId]);
+
+  useEffect(() => {
+    if (!game.name) return;
+    document.title = game.name;
+
+    if (game.name === 'NULL') {
+      document.title = 'Video Game Reviews';
+    }
+
+    return () => {
+      document.title = 'Video Game Reviews';
+    };
+  });
 
   return (
     <div className='overview'>
+      {!selectedId && (
+        <p className='overview-tip'>Choose a game from the list to view info</p>
+      )}
+
+      {error && <ErrorMessage message={error} />}
       {isLoading ? (
-        <p>Loading...</p>
+        <Loader />
       ) : (
         selectedId && (
           <ul className='overview-game'>
@@ -64,21 +98,23 @@ const GameOverview = ({
                 <div className='overview-textbox'>
                   <div>
                     <h2>{game.name}</h2>
-                    <h3>Release Date: {game.released}</h3>
+                    <h3>Release On: {game.released}</h3>
                   </div>
 
                   <div>
                     {!isPlayed ? (
                       <>
-                        <StarRating
-                          maxRating={10}
-                          size={20}
-                          onSetRating={setUserRating}
-                        />
-
+                        <div className='overview-rating'>
+                          <h3>Rate This Game</h3>
+                          <StarRating
+                            maxRating={5}
+                            size={20}
+                            onSetRating={setUserRating}
+                          />
+                        </div>
                         {userRating > 0 && (
                           <button className='overview-btn' onClick={handleAdd}>
-                            Add Review
+                            Add My Review
                           </button>
                         )}
                       </>

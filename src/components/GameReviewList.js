@@ -1,16 +1,19 @@
-const GameReviewList = ({ reviewed }) => {
+const GameReviewList = ({ reviewed, onSelectGame, isLoading }) => {
   return (
     <ul className='reviews-list'>
       {reviewed.map(review => (
-        <li className='reviews-item' key={review.id}>
-          <img
-            className='reviews-poster'
-            src={review.background_image}
-            alt={review.name}
-          />
+        <li
+          className='reviews-item'
+          key={review.id}
+          onClick={() => onSelectGame(review.id)}
+        >
+          <div
+            className='reviews-image'
+            style={{ backgroundImage: `url(${review.background_image})` }}
+          ></div>
           <div className='reviews-info'>
             <p>{review.name}</p>
-            <p>⭐️ {review.userRating}</p>
+            <p>⭐️ {review.userRating} / 5</p>
           </div>
         </li>
       ))}
