@@ -35,7 +35,7 @@ const App = () => {
         setError('');
 
         const res = await fetch(
-          `https://api.rawg.io/api/games?key=${process.env.REACT_APP_API_KEY}&page_size=5&search=${query}`,
+          `https://api.rawg.io/api/games?key=0dded3278c844ab48fc5604e089ddc04&page_size=5&search=${query}`,
           { signal: controller.signal }
         );
 

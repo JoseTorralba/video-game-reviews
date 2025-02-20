@@ -38,7 +38,7 @@ const GameOverview = ({
         setError('');
 
         const res = await fetch(
-          `https://api.rawg.io/api/games/${selectedId}?key=${process.env.REACT_APP_API_KEY}`,
+          `https://api.rawg.io/api/games/${selectedId}?key=0dded3278c844ab48fc5604e089ddc04`,
           { signal: controller.signal }
         );
 
