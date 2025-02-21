@@ -139,7 +139,7 @@ Game List
   max-width: 42rem;
   background-color: #343a40;
   border-radius: 0.9rem;
-  overflow: scroll;
+  overflow: hidden;
   position: relative;
 }
 
@@ -147,7 +147,7 @@ Game List
   color: #dee2e6;
   list-style: none;
   /* padding: 1.5rem 2rem; */
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .sidebar-list h2 {
